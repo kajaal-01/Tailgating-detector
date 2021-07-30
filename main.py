@@ -9,20 +9,16 @@ from imutils import rotate
 from imutils.video import FPS
 # Parse arguments from command line parameters.
 ap = argparse.ArgumentParser()
-ap.add_argument("-y", "--yolo", type=str, default="yolo",
- help="base path to YOLO directory")
-ap.add_argument("-c", "--confidence", type=float, default=0.5,
- help="minimum confidence threshold for detection")
-ap.add_argument("-t", "--threshold", type=float, default=0.3,
- help="threshold for non-maxima suppression")
+ap.add_argument("-y", "--yolo", type=str, default="yolo", help="base path to YOLO directory")
+ap.add_argument("-c", "--confidence", type=float, default=0.5, help="minimum confidence threshold for detection")
+ap.add_argument("-t", "--threshold", type=float, default=0.3, help="threshold for non-maxima suppression")
 args = vars(ap.parse_args())
 # Load the object classifier label names and associate the classes
 # with colours for the bounding box.
 labelsFile = os.path.sep.join([args["yolo"], "coco.names"])
 labels = open(labelsFile).read().strip().split("\n")
 numpy.random.seed(100)
-colours = numpy.random.randint(0, 255, size=(len(labels), 3),
- dtype="uint8")
+colours = numpy.random.randint(0, 255, size=(len(labels), 3), dtype="uint8")
 # Define location of cfg and weight files for our model.
 weightsPath = os.path.sep.join([args["yolo"], "yolov3.weights"])
 configPath = os.path.sep.join([args["yolo"], "yolov3.cfg"])
@@ -41,8 +37,7 @@ time.sleep(2.0)
 fps = FPS().start()
 # Initiate a fullscreen window for our stream.
 cv2.namedWindow('Live', cv2.WND_PROP_FULLSCREEN)
-cv2.setWindowProperty("Live", cv2.WND_PROP_FULLSCREEN,
- cv2.WINDOW_FULLSCREEN)
+cv2.setWindowProperty("Live", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 # Loop until interrupted by pressing q.
 while True:
  # On every pass we read the latest frame from the video stream.
@@ -60,8 +55,7 @@ while True:
  # settings and perform a forward pass of the neural network,
  # resulting in our bounding box coordinates and associated
  # confidence levels.
-      blob = cv2.dnn.blobFromImage(
-            frame, 1 / 255.0, (416, 416), swapRB=True, crop=False)
+      blob = cv2.dnn.blobFromImage(frame, 1 / 255.0, (416, 416), swapRB=True, crop=False)
       neuralNetwork.setInput(blob)
       layerOutputs = neuralNetwork.forward(layerNames)
       boxes = []
