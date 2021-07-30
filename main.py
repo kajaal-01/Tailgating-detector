@@ -26,8 +26,7 @@ configPath = os.path.sep.join([args["yolo"], "yolov3.cfg"])
 # of the output layers.
 neuralNetwork = cv2.dnn.readNetFromDarknet(configPath, weightsPath)
 layerNames = neuralNetwork.getLayerNames()
-layerNames = [layerNames[i[0] - 1]
-              for i in neuralNetwork.getUnconnectedOutLayers()]
+layerNames = [layerNames[i[0] - 1] for i in neuralNetwork.getUnconnectedOutLayers()]
 # Load the videostream and set dimensions to None.
 videoStream = TestStream().start()
 (H, W) = (None, None)
